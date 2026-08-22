@@ -5,6 +5,7 @@
   "description": "The Odin Project: Members Only",
   "main": "index.js",
   "scripts": {
+    "css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +20,10 @@
   },
   "homepage": "https://github.com/Feenixtm/top_members_only#readme",
   "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "tailwindcss": "^4.3.3"
   }
 }
