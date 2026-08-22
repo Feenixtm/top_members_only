@@ -9,3 +9,7 @@ export const getSignUp = (req, res) => {
 export const getLogIn = (req, res) => {
     res.render("log-in");
 }
+
+export const getNewMessage = (req, res) => {
+    res.render("new-message");
+}
