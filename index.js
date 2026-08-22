@@ -1,18 +1,27 @@
 import express from "express";
 import path from "node:path";
 import router from "./routes/allRoutes.js"
+import session from "express-session";
+import passport from "passport";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 
-// Use ejs
+// Use EJS
 const currentDirectory = import.meta.dirname;
 app.set("views", path.join(currentDirectory, "views"));
 app.set("view engine", "ejs");
 
+// Use Passport & Sessions
+app.use(session({ secret: "cats", resave: false, saveUninitialized: false}))
+app.use(passport.session());
+
 // Use CSS
 app.use(express.static(path.join(currentDirectory, "public")));
+
+// Read Forms
+app.use(express.urlencoded({ extended: false }))
 
 app.use("/", router);
 
