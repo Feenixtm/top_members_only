@@ -5,4 +5,8 @@ const router = express.Router();
 
 router.get("/", controller.getIndex);
 
+router.get("/sign-up", controller.getSignUp);
+
+router.get("/log-in", controller.getLogIn);
+
 export default router;
