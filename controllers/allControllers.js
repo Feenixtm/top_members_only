@@ -59,7 +59,13 @@ export const postSignUp = async (req, res, next) => {
 export const postJoinTheClub = async (req, res, next) => {
     try {
         const id = Number(req.user.id);
-        await pool.query("UPDATE users SET membership_status = $1 WHERE id = $2", [true, id]);
+        const password = req.body.password;
+
+        if (password.toLocaleUpperCase() === "INEEDTHIS") {
+            await pool.query("UPDATE users SET membership_status = $1 WHERE id = $2", [true, id]);
+        } else {
+            console.log("Incorrect Password. Membership has been denied...")
+        }
 
         res.redirect("/");
     } catch (error) {
