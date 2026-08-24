@@ -21,7 +21,10 @@ app.use(passport.session());
 app.use(express.static(path.join(currentDirectory, "public")));
 
 // Read Forms
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
+
+// Allow the use of LocalStrategy in allController.js
+import "./config/passport.js";
 
 app.use("/", router);
 

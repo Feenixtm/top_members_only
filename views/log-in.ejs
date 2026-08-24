@@ -9,20 +9,20 @@
 <body class="flex flex-col gap-2">
     <h1>Log In</h1>
 
-    <form class="flex flex-col" action="/log-in" method="POST">
+    <form class="flex flex-col max-w-[16rem]" action="/log-in" method="POST">
         <label for="">Username</label>
-        <input type="text" name="username">
+        <input class="border" type="text" name="username">
 
         <label for="">Password</label>
-        <input type="password" name="password">
+        <input class="border" type="password" name="password">
 
         <button type="submit">Log-in</button>
     </form>
 
     <p>
         Already have an account? 
-        <a href="/sign-up">Sign up here</a>
+        <a class="w-fit" href="/sign-up">Sign up here</a>
     </p>
-    <a href="/">Return to Home</a>
+    <a class="w-fit" href="/">Return to Home</a>
 </body>
 </html>

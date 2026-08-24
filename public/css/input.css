@@ -4,3 +4,13 @@ a {
     color: #0000FF;
     text-decoration: underline;
 }
+
+button {
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+button:hover { 
+    background-color: black;
+    color: white;
+}

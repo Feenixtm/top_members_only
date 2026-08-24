@@ -1,4 +1,5 @@
 /*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
+@layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
@@ -165,11 +166,21 @@
   .flex {
     display: flex;
   }
+  .w-fit {
+    width: fit-content;
+  }
+  .max-w-\[16rem\] {
+    max-width: 16rem;
+  }
   .flex-col {
     flex-direction: column;
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
+  }
+  .border {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
   }
   .text-red-500 {
     color: var(--color-red-500);
@@ -178,4 +189,24 @@
 a {
   color: #0000FF;
   text-decoration: underline;
+}
+button {
+  border: 1px solid black;
+  cursor: pointer;
+}
+button:hover {
+  background-color: black;
+  color: white;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-border-style: solid;
+    }
+  }
 }
