@@ -11,6 +11,8 @@ router.get("/sign-up", controller.getSignUp);
 
 router.get("/log-in", controller.getLogIn);
 
+router.get("/join-the-club", controller.getJoinTheClub);
+
 router.get("/log-out", controller.getLogOut);
 
 // ------------------------------------------
@@ -23,7 +25,9 @@ router.post("/log-in",
         failureRedirect: "/",
         failureMessage: true,
     })
-)
+);
+
+router.post("/join-the-club", controller.postJoinTheClub);
 
 
 

@@ -11,9 +11,19 @@
 
     <% if (locals.user) { %>
         <p>Welcome back <%= user.username %></p>
+        <a href="/create-comment">Create Comment</a>
+
+        <% if (user.membership_status === "true") { %>
+            You are currently a Platinum Member!
+        <% } else if (user.membership_status === "false") { %>
+            <a href="/join-the-club">Join the club and become a member today!</a>
+        <% } %> 
+
     <% } else { %> 
         <p>Please log in.</p>
     <% } %>
+
+    
 
     <a href="/sign-up">Sign Up</a>
     <a href="/log-in">Log In</a>

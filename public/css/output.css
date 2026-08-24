@@ -182,6 +182,12 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+  .py-1 {
+    padding-block: var(--spacing);
+  }
   .text-red-500 {
     color: var(--color-red-500);
   }
@@ -189,6 +195,7 @@
 a {
   color: #0000FF;
   text-decoration: underline;
+  width: fit-content;
 }
 button {
   border: 1px solid black;

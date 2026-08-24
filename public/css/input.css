@@ -3,6 +3,7 @@
 a {
     color: #0000FF;
     text-decoration: underline;
+    width: fit-content;
 }
 
 button {

@@ -5,6 +5,7 @@ import pool from "../config/db.js";
 // --- Imports ---
 
 export const getIndex = (req, res) => {
+    // console.log(req.user);
     res.render("index", { user: req.user });
 }
 
@@ -14,6 +15,10 @@ export const getSignUp = (req, res) => {
 
 export const getLogIn = (req, res) => {
     res.render("log-in");
+}
+
+export const getJoinTheClub = (req, res) => {
+    res.render("join-the-club");
 }
 
 export const getNewMessage = (req, res) => {
@@ -47,6 +52,17 @@ export const postSignUp = async (req, res, next) => {
         res.redirect("/");
     } catch (error) {
         console.error(error);
+        next(error);
+    }
+}
+
+export const postJoinTheClub = async (req, res, next) => {
+    try {
+        const id = Number(req.user.id);
+        await pool.query("UPDATE users SET membership_status = $1 WHERE id = $2", [true, id]);
+
+        res.redirect("/");
+    } catch (error) {
         next(error);
     }
 }
