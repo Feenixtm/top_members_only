@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body>
+    <h1>Create New Message</h1>
+
+    <form class="flex flex-col max-w-[16rem]" action="/create-new-message" method="POST">
+        <label for="">Title</label>
+        <input class="border" type="text" name="title">
+
+        <label for="">Content</label>
+        <textarea class="border" name="content" id=""></textarea>
+
+        <button type="submit">Create New Message</button>
+    </form>
+
+    <a href="/">Return to Home</a>
+</body>
+</html>

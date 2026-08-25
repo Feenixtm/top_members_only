@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/css/output.css">
 </head>
 <body class="flex flex-col">
-    <h1 class="text-red-500">Index</h1>
+    <h1 class="text-red-500">Index/Message Board</h1>
 
     <% if (locals.user) { %>
         <p>Welcome back <%= user.username %></p>
-        <a href="/create-comment">Create Comment</a>
+        <a href="/create-new-message">Create Comment</a>
 
         <% if (user.membership_status === "true") { %>
             You are currently a Platinum Member!
@@ -23,14 +23,31 @@
         <p>Please log in.</p>
     <% } %>
 
-    
-
     <a href="/sign-up">Sign Up</a>
     <a href="/log-in">Log In</a>
 
     <% if (locals.user) { %>
         <a href="/log-out">Log Out</a>
     <% } %>
+
+    <div>
+        <h2>All Messages:</h2> 
+
+        <% comments.map((comment, index) => { %>
+            <div class="flex flex-col p-4 border w-fit max-w-[20rem]">
+                <h3 class="text-[1.25rem] font-semibold"><%= comment.title %></h3>
+                <div class="flex gap-4 justify-between">
+                    <% if (locals.user && user.membership_status === "true") { %>
+                        <p class="text-[0.625rem]"><%= comment.username %> </p>
+                        <p class="text-[0.625rem]"><%= comment.date_created.toLocaleString() %></p>
+                    <% } else { %>
+                        <p class="text-[0.625rem]">Author (Hidden)</p>
+                    <% } %>
+                </div> 
+                <p><%= comment.content %></p>
+            </div>
+        <% }) %> 
+    </div>
     
 </body>
 </html>

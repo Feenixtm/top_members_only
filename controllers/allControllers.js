@@ -4,9 +4,16 @@ import pool from "../config/db.js";
 
 // --- Imports ---
 
-export const getIndex = (req, res) => {
-    // console.log(req.user);
-    res.render("index", { user: req.user });
+export const getIndex = async (req, res, next) => {
+    try {
+        const { rows } = await pool.query("SELECT users.username, comments.* FROM users INNER JOIN comments ON users.id = comments.author_id ");
+        console.log(rows);
+
+        // console.log(req.user);
+        res.render("index", { user: req.user, comments: rows });
+    } catch (error) {
+        next(error);
+    }
 }
 
 export const getSignUp = (req, res) => {
@@ -21,8 +28,17 @@ export const getJoinTheClub = (req, res) => {
     res.render("join-the-club");
 }
 
-export const getNewMessage = (req, res) => {
-    res.render("new-message");
+export const getCreateNewMessage = async (req, res, next) => {
+    try {
+        const { rows } = await pool.query("SELECT users.username, comments.* FROM users INNER JOIN comments ON users.id = comments.author_id ");
+        console.log(rows);
+
+        res.render("index", { user: req.user, comments: rows })
+    } catch (error) {
+        next(error);
+    }
+
+    res.render("create-new-message", { user: req.user });
 }
 
 export const getLogOut = (req, res, next) => {
@@ -65,6 +81,31 @@ export const postJoinTheClub = async (req, res, next) => {
             await pool.query("UPDATE users SET membership_status = $1 WHERE id = $2", [true, id]);
         } else {
             console.log("Incorrect Password. Membership has been denied...")
+        }
+
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const postCreateNewMessage = async (req, res, next) => {
+    try {
+        const title = req.body.title;
+        const content = req.body.content;
+        const author = req.user.username;
+        const authorId = req.user.id;
+
+        console.log({ title: title, content: content, author: author, authorId: authorId });
+
+        if (title.length > 0 && content.length > 0) {
+            await pool.query("INSERT INTO comments (title, content, author_id) VALUES ($1, $2, $3)", 
+                [
+                    title,
+                    content,
+                    authorId,
+                ]
+            );
         }
 
         res.redirect("/");

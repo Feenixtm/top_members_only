@@ -11,6 +11,8 @@ router.get("/sign-up", controller.getSignUp);
 
 router.get("/log-in", controller.getLogIn);
 
+router.get("/create-new-message", controller.getCreateNewMessage);
+
 router.get("/join-the-club", controller.getJoinTheClub);
 
 router.get("/log-out", controller.getLogOut);
@@ -27,8 +29,8 @@ router.post("/log-in",
     })
 );
 
+router.post("/create-new-message", controller.postCreateNewMessage);
+
 router.post("/join-the-club", controller.postJoinTheClub);
-
-
 
 export default router;
