@@ -39,6 +39,6 @@ router.post("/admin-request", controller.postAdminRequest);
 
 // ------------------------------------------
 
-router.post("/delete/comment/:id", controller.postDeleteMessage);
+router.post("/delete-comment/:id", controller.postDeleteMessage);
 
 export default router;
