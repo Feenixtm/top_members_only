@@ -19,6 +19,12 @@
             <a href="/join-the-club">Join the club and become a member today!</a>
         <% } %> 
 
+        <% if (user.admin === false) { %>
+            <a href="/admin-request-form">Become an admin today!</a>
+        <% } else if (user.admin === true) { %>
+            <p>Welcome Mr. Admin</p>
+        <% } %> 
+
     <% } else { %> 
         <p>Please log in.</p>
     <% } %>
@@ -45,6 +51,13 @@
                     <% } %>
                 </div> 
                 <p><%= comment.content %></p>
+
+                <% if (locals.user && user.admin === true) { %>
+                    <form action="/delete-comment/<%= comment.id %>" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                <% } %>
+
             </div>
         <% }) %> 
     </div>

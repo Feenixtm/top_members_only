@@ -6,7 +6,7 @@ import pool from "../config/db.js";
 
 export const getIndex = async (req, res, next) => {
     try {
-        const { rows } = await pool.query("SELECT users.username, comments.* FROM users INNER JOIN comments ON users.id = comments.author_id ");
+        const { rows } = await pool.query("SELECT users.id, users.username, users.admin, comments.* FROM users INNER JOIN comments ON users.id = comments.author_id ");
         console.log(rows);
 
         // console.log(req.user);
@@ -28,16 +28,11 @@ export const getJoinTheClub = (req, res) => {
     res.render("join-the-club");
 }
 
-export const getCreateNewMessage = async (req, res, next) => {
-    try {
-        const { rows } = await pool.query("SELECT users.username, comments.* FROM users INNER JOIN comments ON users.id = comments.author_id ");
-        console.log(rows);
+export const getAdminRequestForm = (req, res) => {
+    res.render("admin-request-form", { user: req.user });
+}
 
-        res.render("index", { user: req.user, comments: rows })
-    } catch (error) {
-        next(error);
-    }
-
+export const getCreateNewMessage = (req, res) => {
     res.render("create-new-message", { user: req.user });
 }
 
@@ -56,12 +51,13 @@ export const getLogOut = (req, res, next) => {
 export const postSignUp = async (req, res, next) => {
     try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        await pool.query("INSERT INTO users (first_name, last_name, username, password, membership_status) VALUES ($1, $2, $3, $4, $5)",
+        await pool.query("INSERT INTO users (first_name, last_name, username, password, membership_status, admin) VALUES ($1, $2, $3, $4, $5, $6)",
             [
                 req.body.firstName,
                 req.body.lastName,
                 req.body.username,
                 hashedPassword,
+                false,
                 false
             ]
         );
@@ -81,6 +77,23 @@ export const postJoinTheClub = async (req, res, next) => {
             await pool.query("UPDATE users SET membership_status = $1 WHERE id = $2", [true, id]);
         } else {
             console.log("Incorrect Password. Membership has been denied...")
+        }
+
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const postAdminRequest = async (req, res, next) => {
+    try {
+        const id = req.user.id;
+        const password = req.body.password;
+
+        if (password === "IWANTADMIN") {
+            await pool.query("UPDATE users SET admin = $1 WHERE id = $2", [true, id]);
+        } else {
+            console.log("Incorrect Password. Admin request denied...")
         }
 
         res.redirect("/");
@@ -113,3 +126,16 @@ export const postCreateNewMessage = async (req, res, next) => {
         next(error);
     }
 }
+
+// ------ DELETE ------
+
+export const postDeleteMessage = async (req, res, next) => {
+    try {
+        const commentId = Number(req.params.id);
+        await pool.query("DELETE FROM comments WHERE id = $1", [commentId]);
+
+        res.redirect("/");
+    } catch (error) {
+        next(error);
+    }
+};

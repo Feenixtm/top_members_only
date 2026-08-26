@@ -15,6 +15,8 @@ router.get("/create-new-message", controller.getCreateNewMessage);
 
 router.get("/join-the-club", controller.getJoinTheClub);
 
+router.get("/admin-request-form", controller.getAdminRequestForm);
+
 router.get("/log-out", controller.getLogOut);
 
 // ------------------------------------------
@@ -32,5 +34,11 @@ router.post("/log-in",
 router.post("/create-new-message", controller.postCreateNewMessage);
 
 router.post("/join-the-club", controller.postJoinTheClub);
+
+router.post("/admin-request", controller.postAdminRequest);
+
+// ------------------------------------------
+
+router.post("/delete/comment/:id", controller.postDeleteMessage);
 
 export default router;
